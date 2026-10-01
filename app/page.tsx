@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 
 const photos = [
@@ -60,6 +61,17 @@ export default function Home() {
   const [photo, setPhoto] = useState(0);
   const [showFinal, setShowFinal] = useState(false);
 
+  const openLetter = () => {
+    setStarted(true);
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "instant",
+      });
+    }, 50);
+  };
+
   const nextPhoto = () => {
     setPhoto((current) => (current + 1) % photos.length);
   };
@@ -78,11 +90,35 @@ export default function Home() {
 
   if (!started) {
     return (
-      <main className="opening">
-        <div className="opening-glow opening-glow-left" />
-        <div className="opening-glow opening-glow-right" />
+      <main
+        className="opening"
+        style={{
+          position: "relative",
+          minHeight: "100svh",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          className="opening-glow opening-glow-left"
+          style={{
+            pointerEvents: "none",
+          }}
+        />
 
-        <div className="opening-content">
+        <div
+          className="opening-glow opening-glow-right"
+          style={{
+            pointerEvents: "none",
+          }}
+        />
+
+        <div
+          className="opening-content"
+          style={{
+            position: "relative",
+            zIndex: 10,
+          }}
+        >
           <div className="opening-symbol">✦</div>
 
           <p className="opening-label">UMA PEQUENA CARTA</p>
@@ -102,20 +138,26 @@ export default function Home() {
           </p>
 
           <button
-  type="button"
-  className="opening-button"
-  onPointerUp={() => setStarted(true)}
-  onClick={() => setStarted(true)}
-  style={{
-    position: "relative",
-    zIndex: 20,
-    touchAction: "manipulation",
-    WebkitTapHighlightColor: "transparent",
-  }}
->
-  <span>Abrir carta</span>
-  <span>→</span>
-</button>
+            type="button"
+            className="opening-button"
+            aria-label="Abrir carta"
+            onTouchStart={openLetter}
+            onPointerDown={openLetter}
+            onClick={openLetter}
+            style={{
+              position: "relative",
+              zIndex: 100,
+              pointerEvents: "auto",
+              touchAction: "manipulation",
+              WebkitTapHighlightColor: "transparent",
+              WebkitTouchCallout: "none",
+              userSelect: "none",
+              cursor: "pointer",
+            }}
+          >
+            <span>Abrir carta</span>
+            <span>→</span>
+          </button>
 
           <p className="opening-note">
             Feito com carinho e respeito.
@@ -176,6 +218,7 @@ export default function Home() {
           </p>
 
           <button
+            type="button"
             className="hero-scroll"
             onClick={() => scrollTo("introducao")}
           >
@@ -261,6 +304,7 @@ export default function Home() {
 
           <div className="gallery-main">
             <button
+              type="button"
               className="gallery-arrow gallery-arrow-left"
               onClick={previousPhoto}
               aria-label="Fotografia anterior"
@@ -290,6 +334,7 @@ export default function Home() {
             </div>
 
             <button
+              type="button"
               className="gallery-arrow gallery-arrow-right"
               onClick={nextPhoto}
               aria-label="Próxima fotografia"
@@ -302,6 +347,7 @@ export default function Home() {
             <div className="gallery-dots">
               {photos.map((item, index) => (
                 <button
+                  type="button"
                   key={item.src}
                   className={index === photo ? "active" : ""}
                   onClick={() => setPhoto(index)}
@@ -320,7 +366,12 @@ export default function Home() {
       {/* FÉ */}
 
       <section className="faith" id="fe">
-        <div className="faith-background" />
+        <div
+          className="faith-background"
+          style={{
+            pointerEvents: "none",
+          }}
+        />
 
         <div className="faith-content">
           <div className="faith-symbol">✦</div>
@@ -435,6 +486,7 @@ export default function Home() {
             </p>
 
             <button
+              type="button"
               className="ending-button"
               onClick={() => setShowFinal(true)}
             >
@@ -467,6 +519,7 @@ export default function Home() {
             <span>Fim da carta.</span>
 
             <button
+              type="button"
               className="restart"
               onClick={() => {
                 setShowFinal(false);
