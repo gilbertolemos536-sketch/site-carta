@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 const photos = [
   {
     src: "/fotos/foto-1.jpeg",
@@ -57,18 +55,6 @@ const verses = [
 ];
 
 export default function Home() {
-  const [photo, setPhoto] = useState(0);
-
-  const nextPhoto = () => {
-    setPhoto((current) => (current + 1) % photos.length);
-  };
-
-  const previousPhoto = () => {
-    setPhoto(
-      (current) => (current - 1 + photos.length) % photos.length,
-    );
-  };
-
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
@@ -77,8 +63,8 @@ export default function Home() {
 
   return (
     <main className="site">
-      {/* HERO */}
 
+      {/* HERO */}
       <section className="hero" id="inicio">
         <nav className="navigation">
           <button
@@ -115,7 +101,9 @@ export default function Home() {
         </nav>
 
         <div className="hero-content">
-          <p className="eyebrow">PARA UMA PESSOA ESPECIAL</p>
+          <p className="eyebrow">
+            PARA UMA PESSOA ESPECIAL
+          </p>
 
           <h1>
             Algumas pessoas
@@ -145,16 +133,24 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="hero-number">01 / 05</div>
+        <div className="hero-number">
+          01 / 05
+        </div>
       </section>
 
       {/* INTRODUÇÃO */}
-
-      <section className="introduction" id="introducao">
-        <div className="section-index">01</div>
+      <section
+        className="introduction"
+        id="introducao"
+      >
+        <div className="section-index">
+          01
+        </div>
 
         <div className="introduction-content">
-          <p className="section-label">ANTES DE TUDO</p>
+          <p className="section-label">
+            ANTES DE TUDO
+          </p>
 
           <h2>
             Não foi
@@ -166,30 +162,36 @@ export default function Home() {
 
           <div className="introduction-copy">
             <p>
-              Às vezes começamos a reparar em alguém sem
-              perceber exatamente quando isso aconteceu.
+              Às vezes começamos a reparar em alguém
+              sem perceber exatamente quando isso
+              aconteceu.
             </p>
 
             <p>
-              Um sorriso, uma conversa, uma maneira de tratar
-              as pessoas... e, pouco a pouco, aquela pessoa
-              começa a ocupar um espaço especial nos nossos
-              pensamentos.
+              Um sorriso, uma conversa, uma maneira
+              de tratar as pessoas... e, pouco a pouco,
+              aquela pessoa começa a ocupar um espaço
+              especial nos nossos pensamentos.
             </p>
 
             <p>
-              Talvez seja exatamente isso que aconteceu aqui.
+              Talvez seja exatamente isso que aconteceu
+              aqui.
             </p>
           </div>
         </div>
       </section>
 
-      {/* FOTOS */}
-
-      <section className="moments" id="momentos">
+      {/* MOMENTOS */}
+      <section
+        className="moments"
+        id="momentos"
+      >
         <div className="moments-header">
           <div>
-            <p className="section-label">02 — MOMENTOS</p>
+            <p className="section-label">
+              02 — MOMENTOS
+            </p>
 
             <h2>
               Algumas
@@ -205,85 +207,39 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="gallery">
-          <div className="gallery-top">
-            <span>{photos[photo].number}</span>
-
-            <div className="gallery-progress">
-              <div
-                style={{
-                  width: `${((photo + 1) / photos.length) * 100}%`,
-                }}
-              />
-            </div>
-
-            <span>{String(photos.length).padStart(2, "0")}</span>
-          </div>
-
-          <div className="gallery-main">
-            <button
-              type="button"
-              className="gallery-arrow gallery-arrow-left"
-              onClick={previousPhoto}
-              aria-label="Fotografia anterior"
+        <div className="photo-list">
+          {photos.map((photo) => (
+            <article
+              className="photo-card"
+              key={photo.src}
             >
-              ←
-            </button>
-
-            <div className="gallery-image-container">
-              <div className="gallery-image-frame">
+              <div className="photo-card-image">
                 <img
-                  key={photos[photo].src}
-                  src={photos[photo].src}
-                  alt={photos[photo].title}
-                  className="gallery-image"
+                  src={photo.src}
+                  alt={photo.title}
                 />
               </div>
 
-              <div className="gallery-image-info">
-                <span>{photos[photo].number}</span>
+              <div className="photo-card-info">
+                <span className="photo-card-number">
+                  {photo.number}
+                </span>
 
-                <div>
-                  <h3>{photos[photo].title}</h3>
-
-                  <p>{photos[photo].text}</p>
+                <div className="photo-card-text">
+                  <h3>{photo.title}</h3>
+                  <p>{photo.text}</p>
                 </div>
               </div>
-            </div>
-
-            <button
-              type="button"
-              className="gallery-arrow gallery-arrow-right"
-              onClick={nextPhoto}
-              aria-label="Próxima fotografia"
-            >
-              →
-            </button>
-          </div>
-
-          <div className="gallery-bottom">
-            <div className="gallery-dots">
-              {photos.map((item, index) => (
-                <button
-                  type="button"
-                  key={item.src}
-                  className={index === photo ? "active" : ""}
-                  onClick={() => setPhoto(index)}
-                  aria-label={`Ir para fotografia ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <p>
-              {photo + 1} de {photos.length}
-            </p>
-          </div>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* FÉ */}
-
-      <section className="faith" id="fe">
+      <section
+        className="faith"
+        id="fe"
+      >
         <div
           className="faith-background"
           style={{
@@ -292,7 +248,9 @@ export default function Home() {
         />
 
         <div className="faith-content">
-          <div className="faith-symbol">✦</div>
+          <div className="faith-symbol">
+            ✦
+          </div>
 
           <p className="section-label section-label-light">
             03 — FÉ
@@ -307,20 +265,28 @@ export default function Home() {
           </h2>
 
           <p className="faith-introduction">
-            E talvez uma das coisas mais bonitas seja
-            aprender a confiar no tempo de Deus.
+            E talvez uma das coisas mais bonitas
+            seja aprender a confiar no tempo de Deus.
           </p>
 
           <div className="verses">
             {verses.map((verse, index) => (
-              <div className="verse" key={verse.reference}>
+              <div
+                className="verse"
+                key={verse.reference}
+              >
                 <span>
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
                 <div>
-                  <p>“{verse.text}”</p>
-                  <small>{verse.reference}</small>
+                  <p>
+                    “{verse.text}”
+                  </p>
+
+                  <small>
+                    {verse.reference}
+                  </small>
                 </div>
               </div>
             ))}
@@ -329,9 +295,10 @@ export default function Home() {
       </section>
 
       {/* TRANSIÇÃO */}
-
       <section className="transition">
-        <p className="section-label">E ENTÃO...</p>
+        <p className="section-label">
+          E ENTÃO...
+        </p>
 
         <h2>
           Talvez algumas
@@ -345,12 +312,18 @@ export default function Home() {
       </section>
 
       {/* MENSAGEM */}
-
-      <section className="message" id="mensagem">
+      <section
+        className="message"
+        id="mensagem"
+      >
         <div className="message-container">
-          <p className="section-label">04 — A MENSAGEM</p>
+          <p className="section-label">
+            04 — A MENSAGEM
+          </p>
 
-          <div className="message-heart">♡</div>
+          <div className="message-heart">
+            ♡
+          </div>
 
           <h2>
             Eu gosto
@@ -362,36 +335,47 @@ export default function Home() {
 
           <div className="message-copy">
             <p>
-              Não fiz isto para te colocar numa situação
-              difícil, nem para esperar uma resposta imediata.
+              Não fiz isto para te colocar numa
+              situação difícil, nem para esperar
+              uma resposta imediata.
             </p>
 
             <p>
-              Fiz porque às vezes uma pessoa se torna
-              especial e simplesmente merece saber disso.
+              Fiz porque às vezes uma pessoa se
+              torna especial e simplesmente merece
+              saber disso.
             </p>
 
             <p>
-              Talvez você não sinta o mesmo. E tudo bem.
-              O que importa para mim é que você saiba que
-              existe alguém que admira a pessoa que você é.
+              Talvez você não sinta o mesmo.
+              E tudo bem. O que importa para mim
+              é que você saiba que existe alguém
+              que admira a pessoa que você é.
             </p>
           </div>
 
           <div className="signature">
-            <span>Com carinho,</span>
-            <strong>Alguém que decidiu dizer.</strong>
+            <span>
+              Com carinho,
+            </span>
+
+            <strong>
+              Alguém que decidiu dizer.
+            </strong>
           </div>
         </div>
       </section>
 
       {/* FINAL */}
-
       <section className="ending">
         <div className="ending-reveal">
-          <div className="ending-symbol">✦</div>
+          <div className="ending-symbol">
+            ✦
+          </div>
 
-          <p className="section-label">05 — UMA ÚLTIMA COISA</p>
+          <p className="section-label">
+            05 — UMA ÚLTIMA COISA
+          </p>
 
           <h2>
             Obrigado por
@@ -408,7 +392,9 @@ export default function Home() {
 
           <div className="ending-line" />
 
-          <span>Fim da carta.</span>
+          <span>
+            Fim da carta.
+          </span>
 
           <button
             type="button"
@@ -426,12 +412,12 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-
       <footer className="footer">
         <span>✦</span>
         <p>Feito com carinho.</p>
         <span>✦</span>
       </footer>
+
     </main>
   );
 }
