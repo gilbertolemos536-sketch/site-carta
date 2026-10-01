@@ -1,69 +1,485 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+
+const photos = [
+  {
+    src: "/fotos/foto-1.jpeg",
+    number: "01",
+    title: "Foi assim que comecei a reparar.",
+    text: "Não sei exatamente quando aconteceu, mas em algum momento comecei a perceber que havia algo diferente em você.",
+  },
+  {
+    src: "/fotos/foto-2.jpeg",
+    number: "02",
+    title: "Há algo no seu jeito.",
+    text: "Talvez seja o seu sorriso. Talvez seja a forma como você olha para as coisas. Talvez seja simplesmente quem você é.",
+  },
+  {
+    src: "/fotos/foto-3.jpeg",
+    number: "03",
+    title: "Algumas pessoas ficam.",
+    text: "Mesmo depois de uma conversa terminar, algumas pessoas continuam presentes nos nossos pensamentos.",
+  },
+  {
+    src: "/fotos/foto-4.jpeg",
+    number: "04",
+    title: "E você ficou.",
+    text: "Entre tantas pessoas que passam pela nossa vida, você acabou se tornando alguém que eu queria conhecer ainda mais.",
+  },
+  {
+    src: "/fotos/foto-5.jpeg",
+    number: "05",
+    title: "Alguns detalhes permanecem.",
+    text: "São pequenos momentos que talvez pareçam simples, mas que acabam ganhando um significado especial.",
+  },
+  {
+    src: "/fotos/foto-6.jpeg",
+    number: "06",
+    title: "Talvez seja apenas o começo.",
+    text: "E talvez algumas histórias não precisem ser apressadas. Algumas simplesmente precisam do tempo certo.",
+  },
+];
+
+const verses = [
+  {
+    reference: "1 Coríntios 13:4",
+    text: "O amor é paciente, o amor é bondoso.",
+  },
+  {
+    reference: "Mateus 5:14",
+    text: "Vós sois a luz do mundo.",
+  },
+  {
+    reference: "Eclesiastes 3:1",
+    text: "Tudo tem o seu tempo determinado.",
+  },
+];
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+  const [started, setStarted] = useState(false);
+  const [photo, setPhoto] = useState(0);
+  const [showFinal, setShowFinal] = useState(false);
+
+  const nextPhoto = () => {
+    setPhoto((current) => (current + 1) % photos.length);
+  };
+
+  const previousPhoto = () => {
+    setPhoto(
+      (current) => (current - 1 + photos.length) % photos.length,
+    );
+  };
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
+  if (!started) {
+    return (
+      <main className="opening">
+        <div className="opening-glow opening-glow-left" />
+        <div className="opening-glow opening-glow-right" />
+
+        <div className="opening-content">
+          <div className="opening-symbol">✦</div>
+
+          <p className="opening-label">UMA PEQUENA CARTA</p>
+
+          <h1>
+            Há coisas que
+            <br />
+            são difíceis de
+            <br />
+            <em>dizer.</em>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="opening-text">
+            Então encontrei outra maneira de
+            <br />
+            tentar dizê-las.
+          </p>
+
+          <button
+            className="opening-button"
+            onClick={() => setStarted(true)}
+          >
+            <span>Abrir carta</span>
+            <span>→</span>
+          </button>
+
+          <p className="opening-note">
+            Feito com carinho e respeito.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
       </main>
-    </div>
+    );
+  }
+
+  return (
+    <main className="site">
+      {/* HERO */}
+
+      <section className="hero" id="inicio">
+        <nav className="navigation">
+          <button
+            className="logo"
+            onClick={() => scrollTo("inicio")}
+          >
+            <span>✦</span>
+            Uma pequena carta
+          </button>
+
+          <div className="navigation-links">
+            <button onClick={() => scrollTo("momentos")}>
+              Momentos
+            </button>
+
+            <button onClick={() => scrollTo("fe")}>
+              Fé
+            </button>
+
+            <button onClick={() => scrollTo("mensagem")}>
+              Mensagem
+            </button>
+          </div>
+        </nav>
+
+        <div className="hero-content">
+          <p className="eyebrow">PARA UMA PESSOA ESPECIAL</p>
+
+          <h1>
+            Algumas pessoas
+            <br />
+            <em>simplesmente</em>
+            <br />
+            deixam uma marca.
+          </h1>
+
+          <p className="hero-description">
+            Esta não é uma grande declaração.
+            <br />
+            É apenas uma pequena forma de dizer
+            <br />
+            aquilo que talvez eu nunca tenha
+            <br />
+            conseguido dizer pessoalmente.
+          </p>
+
+          <button
+            className="hero-scroll"
+            onClick={() => scrollTo("introducao")}
+          >
+            <span>Continuar</span>
+            <span className="hero-scroll-line" />
+          </button>
+        </div>
+
+        <div className="hero-number">01 / 05</div>
+      </section>
+
+      {/* INTRODUÇÃO */}
+
+      <section className="introduction" id="introducao">
+        <div className="section-index">01</div>
+
+        <div className="introduction-content">
+          <p className="section-label">ANTES DE TUDO</p>
+
+          <h2>
+            Não foi
+            <br />
+            planejado.
+            <br />
+            <em>Aconteceu.</em>
+          </h2>
+
+          <div className="introduction-copy">
+            <p>
+              Às vezes começamos a reparar em alguém sem
+              perceber exatamente quando isso aconteceu.
+            </p>
+
+            <p>
+              Um sorriso, uma conversa, uma maneira de tratar
+              as pessoas... e, pouco a pouco, aquela pessoa
+              começa a ocupar um espaço especial nos nossos
+              pensamentos.
+            </p>
+
+            <p>
+              Talvez seja exatamente isso que aconteceu aqui.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FOTOS */}
+
+      <section className="moments" id="momentos">
+        <div className="moments-header">
+          <div>
+            <p className="section-label">02 — MOMENTOS</p>
+
+            <h2>
+              Algumas
+              <br />
+              <em>memórias.</em>
+            </h2>
+          </div>
+
+          <p className="moments-description">
+            Não são apenas fotografias.
+            <br />
+            São pequenos momentos que ficaram.
+          </p>
+        </div>
+
+        <div className="gallery">
+          <div className="gallery-top">
+            <span>{photos[photo].number}</span>
+
+            <div className="gallery-progress">
+              <div
+                style={{
+                  width: `${((photo + 1) / photos.length) * 100}%`,
+                }}
+              />
+            </div>
+
+            <span>{String(photos.length).padStart(2, "0")}</span>
+          </div>
+
+          <div className="gallery-main">
+            <button
+              className="gallery-arrow gallery-arrow-left"
+              onClick={previousPhoto}
+              aria-label="Fotografia anterior"
+            >
+              ←
+            </button>
+
+            <div className="gallery-image-container">
+              <div className="gallery-image-frame">
+                <img
+                  key={photos[photo].src}
+                  src={photos[photo].src}
+                  alt={photos[photo].title}
+                  className="gallery-image"
+                />
+              </div>
+
+              <div className="gallery-image-info">
+                <span>{photos[photo].number}</span>
+
+                <div>
+                  <h3>{photos[photo].title}</h3>
+
+                  <p>{photos[photo].text}</p>
+                </div>
+              </div>
+            </div>
+
+            <button
+              className="gallery-arrow gallery-arrow-right"
+              onClick={nextPhoto}
+              aria-label="Próxima fotografia"
+            >
+              →
+            </button>
+          </div>
+
+          <div className="gallery-bottom">
+            <div className="gallery-dots">
+              {photos.map((item, index) => (
+                <button
+                  key={item.src}
+                  className={index === photo ? "active" : ""}
+                  onClick={() => setPhoto(index)}
+                  aria-label={`Ir para fotografia ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            <p>
+              {photo + 1} de {photos.length}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FÉ */}
+
+      <section className="faith" id="fe">
+        <div className="faith-background" />
+
+        <div className="faith-content">
+          <div className="faith-symbol">✦</div>
+
+          <p className="section-label section-label-light">
+            03 — FÉ
+          </p>
+
+          <h2>
+            Há coisas que
+            <br />
+            o tempo
+            <br />
+            <em>ensina.</em>
+          </h2>
+
+          <p className="faith-introduction">
+            E talvez uma das coisas mais bonitas seja
+            aprender a confiar no tempo de Deus.
+          </p>
+
+          <div className="verses">
+            {verses.map((verse, index) => (
+              <div className="verse" key={verse.reference}>
+                <span>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <div>
+                  <p>“{verse.text}”</p>
+                  <small>{verse.reference}</small>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TRANSIÇÃO */}
+
+      <section className="transition">
+        <p className="section-label">E ENTÃO...</p>
+
+        <h2>
+          Talvez algumas
+          <br />
+          coisas simplesmente
+          <br />
+          <em>precisem ser ditas.</em>
+        </h2>
+
+        <div className="transition-line" />
+      </section>
+
+      {/* MENSAGEM */}
+
+      <section className="message" id="mensagem">
+        <div className="message-container">
+          <p className="section-label">04 — A MENSAGEM</p>
+
+          <div className="message-heart">♡</div>
+
+          <h2>
+            Eu gosto
+            <br />
+            <em>de você.</em>
+          </h2>
+
+          <div className="message-line" />
+
+          <div className="message-copy">
+            <p>
+              Não fiz isto para te colocar numa situação
+              difícil, nem para esperar uma resposta imediata.
+            </p>
+
+            <p>
+              Fiz porque às vezes uma pessoa se torna
+              especial e simplesmente merece saber disso.
+            </p>
+
+            <p>
+              Talvez você não sinta o mesmo. E tudo bem.
+              O que importa para mim é que você saiba que
+              existe alguém que admira a pessoa que você é.
+            </p>
+          </div>
+
+          <div className="signature">
+            <span>Com carinho,</span>
+            <strong>Alguém que decidiu dizer.</strong>
+          </div>
+        </div>
+      </section>
+
+      {/* FINAL */}
+
+      <section className="ending">
+        {!showFinal ? (
+          <div className="ending-intro">
+            <p className="section-label">05 — POR FIM</p>
+
+            <h2>
+              Obrigado por
+              <br />
+              chegar até aqui.
+            </h2>
+
+            <p>
+              Antes de terminar, existe apenas uma última
+              coisa que eu queria deixar aqui.
+            </p>
+
+            <button
+              className="ending-button"
+              onClick={() => setShowFinal(true)}
+            >
+              <span>Ver mensagem final</span>
+              <span>→</span>
+            </button>
+          </div>
+        ) : (
+          <div className="ending-reveal">
+            <div className="ending-symbol">✦</div>
+
+            <p className="section-label">UMA ÚLTIMA COISA</p>
+
+            <h2>
+              Que Deus
+              <br />
+              <em>continue guiando</em>
+              <br />
+              os seus passos.
+            </h2>
+
+            <p>
+              E que você nunca deixe de ser essa pessoa
+              que inspira coisas bonitas em quem tem a
+              oportunidade de conhecê-la.
+            </p>
+
+            <div className="ending-line" />
+
+            <span>Fim da carta.</span>
+
+            <button
+              className="restart"
+              onClick={() => {
+                setShowFinal(false);
+
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+              }}
+            >
+              ↑ Voltar ao início
+            </button>
+          </div>
+        )}
+      </section>
+
+      <footer className="footer">
+        <span>✦</span>
+        <p>Feito com carinho.</p>
+        <span>✦</span>
+      </footer>
+    </main>
   );
 }
