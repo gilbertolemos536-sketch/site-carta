@@ -57,20 +57,7 @@ const verses = [
 ];
 
 export default function Home() {
-  const [started, setStarted] = useState(false);
   const [photo, setPhoto] = useState(0);
-  const [showFinal, setShowFinal] = useState(false);
-
-  const openLetter = () => {
-    setStarted(true);
-
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: "instant",
-      });
-    }, 50);
-  };
 
   const nextPhoto = () => {
     setPhoto((current) => (current + 1) % photos.length);
@@ -88,85 +75,6 @@ export default function Home() {
     });
   };
 
-  if (!started) {
-    return (
-      <main
-        className="opening"
-        style={{
-          position: "relative",
-          minHeight: "100svh",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          className="opening-glow opening-glow-left"
-          style={{
-            pointerEvents: "none",
-          }}
-        />
-
-        <div
-          className="opening-glow opening-glow-right"
-          style={{
-            pointerEvents: "none",
-          }}
-        />
-
-        <div
-          className="opening-content"
-          style={{
-            position: "relative",
-            zIndex: 10,
-          }}
-        >
-          <div className="opening-symbol">✦</div>
-
-          <p className="opening-label">UMA PEQUENA CARTA</p>
-
-          <h1>
-            Há coisas que
-            <br />
-            são difíceis de
-            <br />
-            <em>dizer.</em>
-          </h1>
-
-          <p className="opening-text">
-            Então encontrei outra maneira de
-            <br />
-            tentar dizê-las.
-          </p>
-
-          <button
-            type="button"
-            className="opening-button"
-            aria-label="Abrir carta"
-            onTouchStart={openLetter}
-            onPointerDown={openLetter}
-            onClick={openLetter}
-            style={{
-              position: "relative",
-              zIndex: 100,
-              pointerEvents: "auto",
-              touchAction: "manipulation",
-              WebkitTapHighlightColor: "transparent",
-              WebkitTouchCallout: "none",
-              userSelect: "none",
-              cursor: "pointer",
-            }}
-          >
-            <span>Abrir carta</span>
-            <span>→</span>
-          </button>
-
-          <p className="opening-note">
-            Feito com carinho e respeito.
-          </p>
-        </div>
-      </main>
-    );
-  }
-
   return (
     <main className="site">
       {/* HERO */}
@@ -174,6 +82,7 @@ export default function Home() {
       <section className="hero" id="inicio">
         <nav className="navigation">
           <button
+            type="button"
             className="logo"
             onClick={() => scrollTo("inicio")}
           >
@@ -182,15 +91,24 @@ export default function Home() {
           </button>
 
           <div className="navigation-links">
-            <button onClick={() => scrollTo("momentos")}>
+            <button
+              type="button"
+              onClick={() => scrollTo("momentos")}
+            >
               Momentos
             </button>
 
-            <button onClick={() => scrollTo("fe")}>
+            <button
+              type="button"
+              onClick={() => scrollTo("fe")}
+            >
               Fé
             </button>
 
-            <button onClick={() => scrollTo("mensagem")}>
+            <button
+              type="button"
+              onClick={() => scrollTo("mensagem")}
+            >
               Mensagem
             </button>
           </div>
@@ -470,71 +388,44 @@ export default function Home() {
       {/* FINAL */}
 
       <section className="ending">
-        {!showFinal ? (
-          <div className="ending-intro">
-            <p className="section-label">05 — POR FIM</p>
+        <div className="ending-reveal">
+          <div className="ending-symbol">✦</div>
 
-            <h2>
-              Obrigado por
-              <br />
-              chegar até aqui.
-            </h2>
+          <p className="section-label">05 — UMA ÚLTIMA COISA</p>
 
-            <p>
-              Antes de terminar, existe apenas uma última
-              coisa que eu queria deixar aqui.
-            </p>
+          <h2>
+            Obrigado por
+            <br />
+            <em>chegar até aqui.</em>
+          </h2>
 
-            <button
-              type="button"
-              className="ending-button"
-              onClick={() => setShowFinal(true)}
-            >
-              <span>Ver mensagem final</span>
-              <span>→</span>
-            </button>
-          </div>
-        ) : (
-          <div className="ending-reveal">
-            <div className="ending-symbol">✦</div>
+          <p>
+            Que Deus continue guiando os seus passos.
+            E que você nunca deixe de ser essa pessoa
+            que inspira coisas bonitas em quem tem a
+            oportunidade de conhecê-la.
+          </p>
 
-            <p className="section-label">UMA ÚLTIMA COISA</p>
+          <div className="ending-line" />
 
-            <h2>
-              Que Deus
-              <br />
-              <em>continue guiando</em>
-              <br />
-              os seus passos.
-            </h2>
+          <span>Fim da carta.</span>
 
-            <p>
-              E que você nunca deixe de ser essa pessoa
-              que inspira coisas bonitas em quem tem a
-              oportunidade de conhecê-la.
-            </p>
-
-            <div className="ending-line" />
-
-            <span>Fim da carta.</span>
-
-            <button
-              type="button"
-              className="restart"
-              onClick={() => {
-                setShowFinal(false);
-
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                });
-              }}
-            >
-              ↑ Voltar ao início
-            </button>
-          </div>
-        )}
+          <button
+            type="button"
+            className="restart"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+            }}
+          >
+            ↑ Voltar ao início
+          </button>
+        </div>
       </section>
+
+      {/* FOOTER */}
 
       <footer className="footer">
         <span>✦</span>
