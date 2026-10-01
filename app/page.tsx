@@ -102,12 +102,20 @@ export default function Home() {
           </p>
 
           <button
-            className="opening-button"
-            onClick={() => setStarted(true)}
-          >
-            <span>Abrir carta</span>
-            <span>→</span>
-          </button>
+  type="button"
+  className="opening-button"
+  onPointerUp={() => setStarted(true)}
+  onClick={() => setStarted(true)}
+  style={{
+    position: "relative",
+    zIndex: 20,
+    touchAction: "manipulation",
+    WebkitTapHighlightColor: "transparent",
+  }}
+>
+  <span>Abrir carta</span>
+  <span>→</span>
+</button>
 
           <p className="opening-note">
             Feito com carinho e respeito.
